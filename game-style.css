@@ -1,0 +1,63 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+.welcome {
+  position: fixed;
+  top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+
+  height: 100%;
+  width: 100%;
+  background-color: gray;
+  text-align: center;
+  z-index: 9999;
+}
+
+#game-welcome {
+  /*display: none;*/
+}
+
+#game-start {
+  font-size: 30px;
+}
+
+.game-box{
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+	position: relative;
+	width: 640px;
+  height: 640px;
+}
+
+.game-screen{
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+  background-color: black;
+  z-index: 0;
+}
+
+.game-element {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  z-index: 100;
+}
+
+#dragon-element {
+  background-color: green;
+}
+
+#fireball-element {
+  background-color: red;
+}
