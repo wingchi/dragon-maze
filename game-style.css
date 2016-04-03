@@ -60,4 +60,13 @@ html, body {
 
 #fireball-element {
   background-color: red;
+  z-index: 200;
+}
+
+#hero-element {
+  background-color: gray;
+}
+
+#treasure-element {
+  background-color: yellow;
 }
