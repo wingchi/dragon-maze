@@ -101,18 +101,27 @@
   document.onkeypress = function(event) {
     switch (event.keyCode) {
       case 119: // W
-        hero.y--;
+        if (hero.y - 1 >= 0) {
+          hero.y--;
+        }
       break;
       case 97: // A
-        hero.x--;
+        if (hero.x - 1 >= 0) {
+          hero.x--;
+        }
       break;
       case 115: // S
-        hero.y++;
+        if (hero.y + 1 <= 15) {
+          hero.y++;
+        }
       break;
       case 100: // D
-        hero.x++;
+        if (hero.x + 1 <= 15) {
+          hero.x++;
+        }
       break;
     }
+
     layoutGameElement(heroElement, hero);
     checkForCollisions();
   }
