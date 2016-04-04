@@ -1,51 +1,25 @@
+// the meat of the game
+var gameSpeed = 100; // the lower the faster the fireball moves
+var playerLives = 3; // the number of lives the hero has
+
+var dragon = new gamePoint(0,4);
+var dragonElement = document.querySelector('#dragon-element');
+var fireball = new gamePoint(1,4);
+var fireballElement = document.querySelector('#fireball-element');
+var hero = new gamePoint(8,12);
+var heroElement = document.querySelector('#hero-element');
+var treasure = new gamePoint(14,1);
+var treasureElement = document.querySelector('#treasure-element');
+
 (function(){
-
-  // the meat of the game
-  var gameSpeed = 50; // the lower the faster the fireball moves
-
-  var dragon = new gamePoint(0,4);
-  var dragonElement = document.querySelector('#dragon-element');
-  var fireball = new gamePoint(1,4);
-  var fireballElement = document.querySelector('#fireball-element');
   var fireballAnimation;
-  var hero = new gamePoint(8,12);
-  var heroElement = document.querySelector('#hero-element');
-  var treasure = new gamePoint(14,1);
-  var treasureElement = document.querySelector('#treasure-element');
-  // SETUP
-  //let's layout our game screen so that it's a reasonable sized square
-  var windowHeight;
-  var pixelInterval;
-
-  function setupGameBoxSquare() {
-    windowHeight = window.innerHeight;
-    pixelInterval = (windowHeight - 100) / 16;
-    document.querySelector('.game-box').style.height = (windowHeight - 100) + "px";
-    document.querySelector('.game-box').style.width = document.querySelector('.game-box').style.height;
-
-    resizeGameElements();
-    layoutGameElements();
-    startMovingParts();
-  }
-
-  function resizeGameElements() {
-    var gameElements = document.querySelectorAll('.game-element');
-    for (var i = 0; i < gameElements.length; i++) {
-      gameElements[i].style.height = pixelInterval + "px";
-      gameElements[i].style.width = pixelInterval + "px";
-    }
-  }
+  var gameover = false;
 
   function layoutGameElements() {
     layoutGameElement(dragonElement, dragon);
     layoutGameElement(fireballElement, fireball);
     layoutGameElement(heroElement, hero);
     layoutGameElement(treasureElement, treasure);
-  }
-
-  function layoutGameElement(element, point) {
-    element.style.left = point.xPixels() + "px";
-    element.style.top = point.yPixels() + "px";
   }
 
   function startMovingParts() {
@@ -77,24 +51,45 @@
 
   function checkForCollisions() {
     // if the hero and the fireball collide then the hero dies
-    if (hero.x === fireball.x && hero.y === fireball.y) {
-      alert("X__X YOU DIED! GAME OVER!");
-      clearInterval(fireballAnimation);
+    if (!gameover && ((hero.x === fireball.x && hero.y === fireball.y) ||
+      (hero.x === dragon.x && hero.y === dragon.y))) {
+      alert("X__X OUCH!");
+      playerLives--;
+      document.querySelector('#player-lives').innerHTML = getPlayerLivesText(playerLives);
+
+      // move the hero backward
+      hero.y++;
+      layoutGameElement(heroElement, hero);
+
+      if (playerLives <= 0) {
+        alert("GAME OVER!");
+        gameover = true;
+        clearInterval(fireballAnimation);
+      }
     }
 
+
     // if the hero gets to the treasure then the hero wins
-    if (hero.x === treasure.x && hero.y === treasure.y) {
+    if (!gameover && hero.x === treasure.x && hero.y === treasure.y) {
       alert("YOU GOT THE TREASURE! YOU WIN!");
       treasure.x = -1;
       treasure.y = -1;
       layoutGameElement(treasureElement, treasure);
+      treasureElement.style.display = "none";
+      gameover = true;
     }
   }
 
   // EVENT LISTENERS
   // hide the welcome screen when the user clicks start
   document.querySelector('#game-start').onclick = function() {
-    setupGameBoxSquare();
+    var playerName = document.querySelector('#player-name-input').value;
+    document.querySelector('#player-name').innerHTML = playerName;
+
+    document.querySelector('#player-lives').innerHTML = getPlayerLivesText(playerLives);
+
+    layoutGameElements();
+    startMovingParts();
     document.querySelector('#game-welcome').style.display = "none";
   }
 
@@ -126,19 +121,6 @@
     checkForCollisions();
   }
 
-  // make sure to resize the game screen whenever the window is resized
-  window.addEventListener("resize", setupGameBoxSquare);
-
-  // PROTOTYPES
-  // prototype to help define our game elements
-  function gamePoint(x, y) {
-    this.x = x;
-    this.y = y;
-    this.xPixels = function() {
-      return this.x * pixelInterval;
-    }
-    this.yPixels = function() {
-      return this.y * pixelInterval;
-    }
-  }
+  // change game element positions based on window size
+  window.addEventListener("resize", layoutGameElements);
 })();

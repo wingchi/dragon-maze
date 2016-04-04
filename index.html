@@ -8,17 +8,37 @@
   <body>
     <div id="game-welcome" class="welcome">
       <h1>Welcome to Dragon Maze</h1>
+      <h2>Enter Your Name</h2>
+      <input type="text" id="player-name-input" class="text-input"></input>
       <h2>Click Start to Begin</h2>
       <button id="game-start">Start</button>
     </div>
     <div class="game-box">
-      <div id="dragon-element" class="game-element"></div>
-      <div id="fireball-element" class="game-element"></div>
-      <div id="treasure-element" class="game-element"></div>
-      <div id="hero-element" class="game-element"></div>
       <div id="maze-screen" class="game-screen">
+      <div class="game-info">
+        Hero: <span id="player-name">Link</span>
+        <br>
+        Lives: <span id="player-lives">&hearts;	&hearts;	&hearts;</span>
+      </div>
+      <div id="dragon-element" class="game-element">
+        <!-- stole this art from http://pixeljoint.com/forum/forum_posts.asp?TID=11299 -->
+        <img class="game-element-sprite" src="images/dragon.gif" alt="dragon rawr!">
+      </div>
+      <div id="fireball-element" class="game-element">
+        <!-- stole this art from http://pixeljoint.com/pixelart/82955.htm -->
+        <img class="game-element-sprite" src="images/fireball.gif" alt="fireball">
+      </div>
+      <div id="treasure-element" class="game-element">
+        <!-- stole this art from http://jigo-xd.deviantart.com/art/Pixel-Treasure-Chest-440283417 -->
+        <img class="game-element-sprite" src="images/treasure.png" alt="treasure">
+      </div>
+      <div id="hero-element" class="game-element">
+        <!-- stole this art from http://smashgames.deviantart.com/art/Knight-Pixel-Kingdom-345388937 -->
+        <img class="game-element-sprite" src="images/hero.gif" alt="the hero">
+      </div>
       </div>
     </div>
+    <script src="maze-core.js"></script>
     <script src="solution.js"></script>
   </body>
 </html>
