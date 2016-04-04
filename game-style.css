@@ -27,6 +27,11 @@ html, body {
   font-size: 30px;
 }
 
+.text-input {
+  font-size: 30px;
+  text-align: center;
+}
+
 .game-box{
   margin-top: 50px;
   margin-left: auto;
@@ -50,23 +55,34 @@ html, body {
   position: absolute;
   width: 20px;
   height: 20px;
-  background-color: white;
   z-index: 100;
 }
 
+.game-element-sprite {
+  position: absolute;
+  height: auto;
+  width: 100%;
+}
+
+.game-info {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-family: monospace;
+  font-size: 2em;
+  color: white;
+  z-index: 200;
+}
+
 #dragon-element {
-  background-color: green;
 }
 
 #fireball-element {
-  background-color: red;
   z-index: 200;
 }
 
 #hero-element {
-  background-color: gray;
 }
 
 #treasure-element {
-  background-color: yellow;
 }
